@@ -4,9 +4,17 @@
     background: linear-gradient(to right, #243B55, #141E30); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #fff;
 }
-
 .display-4 {
     text-transform: uppercase;
     letter-spacing: 5px;
 }
-
+.btn {
+    border-radius: 0;
+    color: #fff;
+    background-color: #003f93;
+    transition: all .3s;
+}
+.btn:hover {
+    color: #003f93;
+    background-color: #fff;   
+}
