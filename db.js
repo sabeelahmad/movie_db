@@ -25,6 +25,21 @@ function testquery() {
     });
 }
 
+// create test table
+function createTestTable() {
+    connection.query('CREATE TABLE test1 (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30))', (err, results, fields) => {
+        if(err) {
+            // logging error
+            console.log(err);
+        } else {
+            // logging rows and columns
+            console.log(results);
+            console.log(fields);
+        }
+    });
+}
+
 exports = module.exports = {
     testquery,
+    createTestTable,
 }

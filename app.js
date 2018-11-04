@@ -17,6 +17,7 @@ app.get('/', (req, res) => {
 app.get('/search-movie-name', (req, res) => {
     res.send('By Name.');
     db.testquery();
+    db.createTestTable();
 });
 
 app.get('/search-actor-name', (req, res) => {
