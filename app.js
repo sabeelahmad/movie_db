@@ -1,4 +1,5 @@
 const express = require('express');
+const db = require('./db');
 let app = express();
 
 // Setting EJS as view engine
@@ -15,6 +16,7 @@ app.get('/', (req, res) => {
 // Search Routes
 app.get('/search-movie-name', (req, res) => {
     res.send('By Name.');
+    db.testquery();
 });
 
 app.get('/search-actor-name', (req, res) => {
