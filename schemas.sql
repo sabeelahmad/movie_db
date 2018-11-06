@@ -2,7 +2,7 @@
 CREATE TABLE movie (
     movie_id int AUTO_INCREMENT PRIMARY KEY,
     plot varchar(255) NOT NULL,
-    runtime time NOT NULL,
+    runtime VARCHAR(10) NOT NULL,
     release_year year(4) NOT NULL,
     title varchar(50) NOT NULL 
 );

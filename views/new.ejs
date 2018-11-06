@@ -79,11 +79,12 @@
                 <a class="btn btn-primary" id="cast_det" style="background-color: #fff; display: block; width: 20%;">Add Cast Details</a>
                 <br>
                 <div id="cast_details_group">
-                
+                    <span id="hack" style="display: none;">hidden</span>
                 </div>
             </div>
             <button class="btn btn-primary">Submit</button>
         </form>
+        <div class="text-center" style="margin-bottom: 1.5rem;" id="msg"></div>
     </div>
     
     
@@ -100,6 +101,7 @@
         // Script for cast actor fields = cast strength
         document.getElementById('cast_det').addEventListener('click', function() {
             var castStrength = document.getElementById('cast_strength').value;
+            document.getElementById('hack').innerText = 'not hidden';
             var castDetailsStr = "";
             for(var i = 0; i < castStrength; i++) {
                 castDetailsStr += `<div class="form-group">
@@ -108,13 +110,19 @@
                                    </div>
                                    `
             }
-            document.getElementById('cast_details_group').innerHTML = castDetailsStr;
+            document.getElementById('cast_details_group').innerHTML += castDetailsStr;
         });
         // Ensure atleast one genre checkbox selected
         document.querySelector("#movie_det").addEventListener("submit", function(e){
             var checkboxes = document.querySelectorAll('input[type="checkbox"]');
             var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+            var checkActor = document.getElementById('hack').innerText;
             if(!checkedOne) {
+                document.getElementById('msg').innerText = "Make sure you Check atleast one genre bud!"
+                e.preventDefault();
+            }
+            if(checkActor === 'hidden') {
+                document.getElementById('msg').innerText = "Make sure you add cast details bud!"
                 e.preventDefault();
             }
         });
