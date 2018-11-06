@@ -5,7 +5,7 @@
     </div>
     <!-- Form -->
     <div class="container" style="margin-top: 3rem;">
-        <form action="/new" method="POST">
+        <form action="/new" method="POST" id="movie_det">
             <div class="form-group">
               <label for="title">Movie Title</label>
               <input type="text" class="form-control" id="title" placeholder="Movie Title.." required>
@@ -109,6 +109,14 @@
                                    `
             }
             document.getElementById('cast_details_group').innerHTML = castDetailsStr;
+        });
+        // Ensure atleast one genre checkbox selected
+        document.querySelector("#movie_det").addEventListener("submit", function(e){
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            var checkedOne = Array.prototype.slice.call(checkboxes).some(x => x.checked);
+            if(!checkedOne) {
+                e.preventDefault();
+            }
         });
     </script>
 <% include ./partials/footer.ejs %>
