@@ -8,7 +8,7 @@
         <form action="/new" method="POST" id="movie_det">
             <div class="form-group">
               <label for="title">Movie Title</label>
-              <input type="text" class="form-control" id="title" placeholder="Movie Title.." required>
+              <input type="text" class="form-control" name="title" id="title" placeholder="Movie Title.." required>
             </div>
             <div class="form-group">
               <label for="releaseYear">Release Year</label>
@@ -16,11 +16,11 @@
             </div>
             <div class="form-group">
                 <label for="runtime">Movie Runtime</label>
-                <input type="time" class="form-control" id="runtime" required>
+                <input type="time" name="runtime" class="form-control" id="runtime" required>
             </div>
             <div class="form-group">
                 <label for="plot">Plot</label>
-                <textarea class="form-control" id="plot" required></textarea>
+                <textarea class="form-control" name="plot" id="plot" required></textarea>
             </div>
             <div class="form-group">
                 <label for="genre">Genre</label>
@@ -51,29 +51,29 @@
                 <br>
                 <div class="form-group">
                     <label for="pc_name">Production Company Name</label>
-                    <input type="text" class="form-control" id="pc_name" placeholder="Production Company Name..." required>
+                    <input type="text" class="form-control" name="pcName" id="pc_name" placeholder="Production Company Name..." required>
                 </div>
                 <div class="form-group">
                     <label for="pc_address">Production Company Address</label>
-                    <input type="text" class="form-control" id="pc_address" placeholder="Production Company Address...">
+                    <input type="text" class="form-control" name="pcAddr" id="pc_address" placeholder="Production Company Address...">
                 </div>
                 <div class="form-group">
                     <label for="pc_owner">Production Company's Owner Name</label>
-                    <input type="text" class="form-control" id="pc_owner" placeholder="Production Company Owner..." required>
+                    <input type="text" class="form-control" name="pcOwner" id="pc_owner" placeholder="Production Company Owner..." required>
                 </div>
                 <br>
                 <div class="form-group">
                     <label for="director">Movie Director</label>
-                    <input type="text" class="form-control" id="director" placeholder="Director Name..." required>
+                    <input type="text" class="form-control" name="director" id="director" placeholder="Director Name..." required>
                 </div>
                 <br>
                 <div class="form-group">
                     <label for="cast_strength">Cast Strength</label>
-                    <input type="number" class="form-control" id="cast_strength" min="3" required>
+                    <input type="number" class="form-control" name="cast_str" id="cast_strength" min="3" required>
                 </div>
                 <div class="form-group">
                     <label for="cast_mgr">Casting Manager</label>
-                    <input type="text" class="form-control" id="cast_mgr" placeholder="Casting Manager Name..." required>
+                    <input type="text" class="form-control" name="cast_mgr" id="cast_mgr" placeholder="Casting Manager Name..." required>
                 </div>
                 <br>
                 <a class="btn btn-primary" id="cast_det" style="background-color: #fff; display: block; width: 20%;">Add Cast Details</a>
@@ -94,7 +94,7 @@
         var end = new Date().getFullYear();
         var options = "";
         for(var year = start ; year <= end; year++){
-        options += "<option>"+ year +"</option>";
+        options += '<option name="releaseYear">'+ year +'</option>';
         }
         document.getElementById("releaseYear").innerHTML = options;
 
@@ -106,7 +106,7 @@
             for(var i = 0; i < castStrength; i++) {
                 castDetailsStr += `<div class="form-group">
                                    <label for="actor-${i+1}">Actor #${i+1}</label>
-                                   <input type="text" class="form-control" id="actor-${i+1}" placeholder="Actor Name..." required>
+                                   <input type="text" class="form-control" name="actor-${i+1}" id="actor-${i+1}" placeholder="Actor Name..." required>
                                    </div>
                                    `
             }

@@ -1,6 +1,10 @@
 const express = require('express');
 const db = require('./db');
+let bodyParser = require('body-parser');
 let app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Setting EJS as view engine
 app.set('view engine', 'ejs');
@@ -39,7 +43,8 @@ app.get('/new', (req, res) => {
 
 // Submit routes
 app.post('/new', (req, res) => {
-
+    console.log(req.body);
+    res.send('We are working on form submissions');
 });
 
 
