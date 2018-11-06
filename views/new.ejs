@@ -1,0 +1,114 @@
+<% include ./partials/header.ejs %>
+
+    <div class="text-center">
+        <h3 style="margin-top: 1rem;">Submit Movie Details!</h3>
+    </div>
+    <!-- Form -->
+    <div class="container" style="margin-top: 3rem;">
+        <form action="/new" method="POST">
+            <div class="form-group">
+              <label for="title">Movie Title</label>
+              <input type="text" class="form-control" id="title" placeholder="Movie Title.." required>
+            </div>
+            <div class="form-group">
+              <label for="releaseYear">Release Year</label>
+              <select id="releaseYear" required></select>
+            </div>
+            <div class="form-group">
+                <label for="runtime">Movie Runtime</label>
+                <input type="time" class="form-control" id="runtime" required>
+            </div>
+            <div class="form-group">
+                <label for="plot">Plot</label>
+                <textarea class="form-control" id="plot" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="genre">Genre</label>
+                <div class="form-check">
+                    <input class="form-check-input" name="genreSelect1" type="checkbox" value="Action" id="action-genre">
+                    <label class="form-check-label" for="action-genre">
+                        Action
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="genreSelect2" type="checkbox" value="Drama" id="drama-genre">
+                    <label class="form-check-label" for="drama-genre">
+                        Drama
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="genreSelect3" type="checkbox" value="Comedy" id="comedy-genre">
+                    <label class="form-check-label" for="comedy-genre">
+                        Comedy
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" name="genreSelect4" type="checkbox" value="Romance" id="romance-genre">
+                    <label class="form-check-label" for="romance-genre">
+                        Romance
+                    </label>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="pc_name">Production Company Name</label>
+                    <input type="text" class="form-control" id="pc_name" placeholder="Production Company Name..." required>
+                </div>
+                <div class="form-group">
+                    <label for="pc_address">Production Company Address</label>
+                    <input type="text" class="form-control" id="pc_address" placeholder="Production Company Address...">
+                </div>
+                <div class="form-group">
+                    <label for="pc_owner">Production Company's Owner Name</label>
+                    <input type="text" class="form-control" id="pc_owner" placeholder="Production Company Owner..." required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="director">Movie Director</label>
+                    <input type="text" class="form-control" id="director" placeholder="Director Name..." required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="cast_strength">Cast Strength</label>
+                    <input type="number" class="form-control" id="cast_strength" min="3" required>
+                </div>
+                <div class="form-group">
+                    <label for="cast_mgr">Casting Manager</label>
+                    <input type="text" class="form-control" id="cast_mgr" placeholder="Casting Manager Name..." required>
+                </div>
+                <br>
+                <a class="btn btn-primary" id="cast_det" style="background-color: #fff; display: block; width: 20%;">Add Cast Details</a>
+                <br>
+                <div id="cast_details_group">
+                
+                </div>
+            </div>
+            <button class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    
+    
+    <script>
+        // Script for dropdown - release year
+        var start = 1900;
+        var end = new Date().getFullYear();
+        var options = "";
+        for(var year = start ; year <= end; year++){
+        options += "<option>"+ year +"</option>";
+        }
+        document.getElementById("releaseYear").innerHTML = options;
+
+        // Script for cast actor fields = cast strength
+        document.getElementById('cast_det').addEventListener('click', function() {
+            var castStrength = document.getElementById('cast_strength').value;
+            var castDetailsStr = "";
+            for(var i = 0; i < castStrength; i++) {
+                castDetailsStr += `<div class="form-group">
+                                   <label for="actor-${i+1}">Actor #${i+1}</label>
+                                   <input type="text" class="form-control" id="actor-${i+1}" placeholder="Actor Name..." required>
+                                   </div>
+                                   `
+            }
+            document.getElementById('cast_details_group').innerHTML = castDetailsStr;
+        });
+    </script>
+<% include ./partials/footer.ejs %>

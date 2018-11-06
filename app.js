@@ -33,10 +33,13 @@ app.get('/search-production-company', (req, res) => {
     res.send('By Production Company');
 });
 
+app.get('/new', (req, res) => {
+    res.render('new');
+});
 
 // Submit routes
-app.get('/form-movie', (req, res) => {
-    res.send('form to submit here.');
+app.post('/new', (req, res) => {
+
 });
 
 
