@@ -77,9 +77,8 @@ CREATE TABLE cast_of_movie(
 CREATE TABLE cast_actor(
     movie_id int,
     actor_name varchar(250) NOT NULL,
-    actor_id int NOT NULL, 
     FOREIGN KEY (movie_id) REFERENCES movie(movie_id),
-    PRIMARY KEY (actor_id,movie_id)
+    PRIMARY KEY (actor_name,movie_id)
 );
 
 

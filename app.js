@@ -19,10 +19,7 @@ app.get('/', (req, res) => {
 
 // Search Routes
 app.get('/search-movie-name', (req, res) => {
-    db.allMovies(function(rows) {
-        let data = rows;
-        res.render('movies', {data: data});
-    });
+    db.test();
 });
 
 app.get('/search-actor-name', (req, res) => {
@@ -44,6 +41,7 @@ app.get('/new', (req, res) => {
 // Submit routes
 app.post('/new', (req, res) => {
     console.log(req.body);
+    console.log(req.body.genreSelect1);
     res.send('We are working on form submissions');
 });
 

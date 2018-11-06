@@ -12,7 +12,7 @@
             </div>
             <div class="form-group">
               <label for="releaseYear">Release Year</label>
-              <select id="releaseYear" required></select>
+              <select id="releaseYear" name="releaseYear" required></select>
             </div>
             <div class="form-group">
                 <label for="runtime">Movie Runtime</label>
@@ -90,11 +90,11 @@
     
     <script>
         // Script for dropdown - release year
-        var start = 1900;
+        var start = 1975;
         var end = new Date().getFullYear();
         var options = "";
         for(var year = start ; year <= end; year++){
-        options += '<option name="releaseYear">'+ year +'</option>';
+        options += `<option value="${year}">${year}</option>`;
         }
         document.getElementById("releaseYear").innerHTML = options;
 

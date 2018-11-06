@@ -11,20 +11,16 @@ let connection = mysql.createConnection({
 // Connect to db
 connection.connect();
 
-// Fetch all movies
-function allMovies(callback) {
-    let query = `SELECT * FROM movie`;
-    connection.query(query, (err, rows, columns) => {
-        if(err) {
-            // log it
-            console.log(err);
-        } else {
-            console.log(rows);
-            return callback(rows);
-        }
+//test query
+function test() {
+    let sql = `INSERT INTO movie(runtime, release_year, plot, title) VALUES ('02:34', 2018, 'gibberish', 'testMovie')`;
+    connection.query(sql, (err, rows, cols) => {
+        console.log(rows);
+        console.log(cols);
+        console.log(rows.insertId); //capturing id
     });
 }
 
 exports = module.exports = {
-    allMovies,
+    test,
 }
