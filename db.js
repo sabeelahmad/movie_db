@@ -21,6 +21,15 @@ function test() {
     });
 }
 
+// Create movie table and store movieid
+// Create pc table and store pcid
+// Create director table and store directorid
+// Create movie genre table
+// Create producedby table
+// Create directyby table
+// Create castofmovie table
+// Create actors table
+
 exports = module.exports = {
     test,
 }
