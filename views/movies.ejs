@@ -1,0 +1,10 @@
+<% include ./partials/header.ejs %>
+
+<div class="container">
+    <% for(let i = 0; i < data.length; i++) { %>
+        <span><%= data[i].title %> --- <%= data[i].plot %></span>
+        <br>
+    <% } %>
+</div>
+
+<% include ./partials/footer.ejs %>

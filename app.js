@@ -15,9 +15,10 @@ app.get('/', (req, res) => {
 
 // Search Routes
 app.get('/search-movie-name', (req, res) => {
-    res.send('By Name.');
-    db.testquery();
-    db.createTestTable();
+    db.allMovies(function(rows) {
+        let data = rows;
+        res.render('movies', {data: data});
+    });
 });
 
 app.get('/search-actor-name', (req, res) => {

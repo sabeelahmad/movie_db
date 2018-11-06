@@ -11,35 +11,20 @@ let connection = mysql.createConnection({
 // Connect to db
 connection.connect();
 
-// test query
-function testquery() {
-    connection.query('SELECT 1+1 AS solution', (err, results, fields) => {
+// Fetch all movies
+function allMovies(callback) {
+    let query = `SELECT * FROM movie`;
+    connection.query(query, (err, rows, columns) => {
         if(err) {
-            // logging error
+            // log it
             console.log(err);
         } else {
-            // logging rows and columns
-            console.log(results);
-            console.log(fields);
-        }
-    });
-}
-
-// create test table
-function createTestTable() {
-    connection.query('CREATE TABLE test1 (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30))', (err, results, fields) => {
-        if(err) {
-            // logging error
-            console.log(err);
-        } else {
-            // logging rows and columns
-            console.log(results);
-            console.log(fields);
+            console.log(rows);
+            return callback(rows);
         }
     });
 }
 
 exports = module.exports = {
-    testquery,
-    createTestTable,
+    allMovies,
 }
