@@ -20,6 +20,10 @@ app.get('/', (req, res) => {
 // Search Routes
 app.get('/movie', (req, res) => {
     db.searchMovieByName(req.query.movie, (foundMovies) => {
+        if(foundMovies.length === 0) {
+            res.render('movieSearch', {data: foundMovies});
+            return;
+        }
         let finalMovieData = foundMovies;
         // Run query to find actor
         for(let i = 0; i < foundMovies.length; i++) {
@@ -123,5 +127,5 @@ app.post('/new', (req, res) => {
 
 
 app.listen(4567, () => {
-    console.log('Listening at port 8080.');
+    console.log('Listening at port 4567.');
 });
