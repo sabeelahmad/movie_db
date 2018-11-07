@@ -51,7 +51,10 @@ app.get('/movie', (req, res) => {
 });
 
 app.get('/actor', (req, res) => {
-    res.render('actorSearch');
+    db.searchByActorName(req.query.actor, (foundActor) => {
+        console.log(foundActor);
+        res.render('actorSearch', {data: foundActor});
+    });
 });
 
 app.get('/director', (req, res) => {

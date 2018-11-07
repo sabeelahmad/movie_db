@@ -173,6 +173,20 @@ function genreSearch(id, cb) {
     });
 }
 
+function searchByActorName(data, cb) {
+    let sql = `SELECT actor_name, title, release_year, plot FROM movie
+               INNER JOIN cast_actor
+               ON cast_actor.movie_id = movie.movie_id
+               WHERE actor_name= "${data}"`;
+    connection.query(sql, (err, rows, cols) => {
+        if(err) {
+            console.log(err);
+        } else {
+            cb(rows);
+        }
+    });
+}
+
 exports = module.exports = {
     createMovieRow,
     createPCRow,
@@ -185,4 +199,5 @@ exports = module.exports = {
     searchMovieByName,
     castSearch,
     genreSearch,
+    searchByActorName,
 }
