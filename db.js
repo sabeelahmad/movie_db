@@ -11,15 +11,6 @@ let connection = mysql.createConnection({
 // Connect to db
 connection.connect();
 
-//test query
-function test() {
-    let sql = `SELECT * FROM production_company`;
-    connection.query(sql, (err, rows, cols) => {
-        console.log(rows);
-        console.log(rows.length);
-    });
-}
-
 // Create movie table and store movieid
 function createMovieRow(data, cb) {
     let sql = `INSERT INTO movie (title, runtime, plot, release_year) VALUES (?, ?, ?, ?)`
@@ -147,8 +138,20 @@ function createActors(id, data) {
     }
 }
 
+
+/* SEARCH QUERIES */
+function searchMovieByName(data, cb) {
+    let sql = `SELECT * FROM movie WHERE title LIKE '%${data}%'`;
+    connection.query(sql, (err, rows, cols) => {
+        if(err) {
+            console.log(err);
+        } else {
+            return cb(rows);
+        }
+    });
+}
+
 exports = module.exports = {
-    test,
     createMovieRow,
     createPCRow,
     createDirectorRow,
@@ -157,4 +160,5 @@ exports = module.exports = {
     createMovieGenres,
     createCast,
     createActors,
+    searchMovieByName,
 }

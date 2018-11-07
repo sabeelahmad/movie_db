@@ -1,11 +1,38 @@
 <% include ./partials/header.ejs %>
 
-<div class="container text-center">
-    <h3>
-        <strong>
-            Results of your search by movie name are here!
-        </strong>
-    </h3>
-</div>
+    <div class="container text-center">
+        <h3>
+            <strong>
+                Results of your search by movie name are here!
+            </strong>
+        </h3>
+    </div>
+
+    <div class="container search-data">
+        <% if(data.length === 0) { %>
+            <div class="mt-5 text-center container">
+                <p class="lead">
+                    Looks like we don't have details about the movie you requested :(
+                    Helps us expand our database by submitting the details!
+                    <a class="btn btn-primary" href="/new">Submit details!</a>
+                </p>
+            </div>
+        <% } %> 
+        <% for(let i = 0; i < data.length; i++) { %>
+            <div class="eachmovie">
+                <div class="card w-100 mt-5 text-center">
+                    <div class="card-body">
+                        <h5 class="card-title"> <%= data[i].title %> </h5>
+                        <p class="card-text movie-plot"> <span><strong>Plot</strong></span><br> <%= data[i].plot %> </p>
+                        <p class="card-text movie-misc">
+                            <span>Runtime: <%= data[i].runtime %>  </span>
+                            <br>
+                            <span>Release Year: <%= data[i].release_year %>  </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
 
 <% include ./partials/footer.ejs %>

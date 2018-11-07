@@ -19,7 +19,10 @@ app.get('/', (req, res) => {
 
 // Search Routes
 app.get('/movie', (req, res) => {
-    res.render('movieSearch');
+    db.searchMovieByName(req.query.movie, (foundMovie) => {
+        // Pass data to view for render
+        res.render('movieSearch', {data: foundMovie});
+    });
 });
 
 app.get('/actor', (req, res) => {

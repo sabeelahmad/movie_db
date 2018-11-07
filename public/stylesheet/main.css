@@ -26,3 +26,6 @@
     display: block;
     transition: all .3s;
 }
+.card-body {
+    font-size: 1.1rem;
+}
