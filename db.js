@@ -151,6 +151,28 @@ function searchMovieByName(data, cb) {
     });
 }
 
+function castSearch(id, cb) {
+    let sql = `SELECT * FROM cast_actor WHERE movie_id = ${id}`;
+    connection.query(sql, (err, rows, cols) => {
+        if(err) {
+            console.log(err);
+        } else {
+            return cb(rows);
+        }
+    });
+}
+
+function genreSearch(id, cb) {
+    let sql = `SELECT * FROM movie_genre WHERE movie_id = ${id}`;
+    connection.query(sql, (err, rows, cols) => {
+        if(err) {
+            console.log(err);
+        } else {
+            return cb(rows);
+        }
+    });
+}
+
 exports = module.exports = {
     createMovieRow,
     createPCRow,
@@ -161,4 +183,6 @@ exports = module.exports = {
     createCast,
     createActors,
     searchMovieByName,
+    castSearch,
+    genreSearch,
 }

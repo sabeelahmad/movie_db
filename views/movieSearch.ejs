@@ -1,6 +1,6 @@
 <% include ./partials/header.ejs %>
 
-    <div class="container text-center">
+    <div class="container text-center" style="margin-top: 2rem;">
         <h3>
             <strong>
                 Results of your search by movie name are here!
@@ -22,12 +22,26 @@
             <div class="eachmovie">
                 <div class="card w-100 mt-5 text-center">
                     <div class="card-body">
-                        <h5 class="card-title"> <%= data[i].title %> </h5>
+                        <h5 class="card-title"><strong><%= data[i].title %></strong></h5>
                         <p class="card-text movie-plot"> <span><strong>Plot</strong></span><br> <%= data[i].plot %> </p>
                         <p class="card-text movie-misc">
-                            <span>Runtime: <%= data[i].runtime %>  </span>
+                            <span><strong>Runtime:</strong> <%= data[i].runtime %>  </span>
                             <br>
-                            <span>Release Year: <%= data[i].release_year %>  </span>
+                            <span><strong>Release Year:</strong> <%= data[i].release_year %>  </span>
+                        </p>
+                        <p class="card-text movie-genre">
+                            <span> <strong>Genres </strong><br>
+                                <% for(let j = 0; j < data[i].genres.length; j++) { %>
+                                    <span id="genre${j}"><%= data[i].genres[j].genre %></span><br>
+                                <% } %>
+                            </span>
+                        </p>
+                        <p class="card-text movie-cast">
+                            <span> <strong>Cast Members </strong><br>
+                                <% for(let j = 0; j < data[i].actors.length; j++) { %>
+                                    <span id="actor${j}"><%= data[i].actors[j].actor_name %></span><br>
+                                <% } %>
+                            </span>
                         </p>
                     </div>
                 </div>

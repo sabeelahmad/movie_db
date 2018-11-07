@@ -19,9 +19,30 @@ app.get('/', (req, res) => {
 
 // Search Routes
 app.get('/movie', (req, res) => {
-    db.searchMovieByName(req.query.movie, (foundMovie) => {
-        // Pass data to view for render
-        res.render('movieSearch', {data: foundMovie});
+    db.searchMovieByName(req.query.movie, (foundMovies) => {
+        let finalMovieData = foundMovies;
+        // Run query to find actor
+        for(let i = 0; i < foundMovies.length; i++) {
+            finalMovieData[i].actors = [];
+            finalMovieData[i].genres = [];
+            // find cast for each movie found from search
+            db.castSearch(foundMovies[i].movie_id, (foundActors) => {
+                for(let j = 0; j < foundActors.length; j++) {
+                    finalMovieData[i].actors.push(foundActors[j]);
+                    if(j === foundActors.length - 1) {
+                        // find genre for each movie found from search
+                        db.genreSearch(foundMovies[i].movie_id, (foundGenres) => {
+                            for(let k = 0; k < foundGenres.length; k++) {
+                                finalMovieData[i].genres.push(foundGenres[k]);
+                                if(i === foundMovies.length - 1) {
+                                    res.render('movieSearch', {data: finalMovieData});
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        } 
     });
 });
 
@@ -101,6 +122,6 @@ app.post('/new', (req, res) => {
 });
 
 
-app.listen(8080, () => {
+app.listen(4567, () => {
     console.log('Listening at port 8080.');
 });
