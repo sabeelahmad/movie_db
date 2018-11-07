@@ -18,20 +18,20 @@ app.get('/', (req, res) => {
 });
 
 // Search Routes
-app.get('/search-movie-name', (req, res) => {
-    db.test();
+app.get('/movie', (req, res) => {
+    res.render('movieSearch');
 });
 
-app.get('/search-actor-name', (req, res) => {
-    res.send('By Actor.');
+app.get('/actor', (req, res) => {
+    res.render('actorSearch');
 });
 
-app.get('/search-director-name', (req, res) => {
-    res.send('By Director.');
+app.get('/director', (req, res) => {
+   res.render('directorSearch');
 });
 
-app.get('/search-production-company', (req, res) => {
-    res.send('By Production Company');
+app.get('/productioncompany', (req, res) => {
+    res.render('productionCompanySearch');
 });
 
 app.get('/new', (req, res) => {

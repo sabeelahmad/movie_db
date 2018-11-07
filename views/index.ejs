@@ -13,15 +13,51 @@
         <div class="secondary-heading">
             <small>
                 <h2>
-                    <strong>Search About A Movie</strong>
+                    <strong>Search about a movie</strong>
                 </h2>
             </small>
         </div>
         <div class="mt-3">
-            <a href="/search-movie-name" class="btn btn-primary">Search by Movie Name</a>
-            <a href="/search-actor-name" class="btn btn-primary">Search by Actor Name</a>
-            <a href="/search-director-name" class="btn btn-primary">Search by Director Name</a>
-            <a href="/search-production-company" class="btn btn-primary">Search by Production Company</a>
+            <a href="#" id="b1" class="btn btn-primary">Search by Movie Name</a>
+            <a href="#" id="b2" class="btn btn-primary">Search by Actor Name</a>
+            <a href="#" id="b3" class="btn btn-primary">Search by Director Name</a>
+            <a href="#" id="b4" class="btn btn-primary">Search by Production Company</a>
+        </div>
+        <div id="movie-searchbox" class="mt-3 hidden">
+            <form action="/movie" method="GET">
+                <div class="form-group">
+                    <label for="movieSearch">Enter the movie name!</label>
+                    <input type="text" class="form-control" id="movieSearch" placeholder="Search Movies" required>
+                </div>
+                <button class="btn btn-primary">Search!</button>
+            </form>
+        </div>
+        <div id="actor-searchbox" class="mt-3 hidden">
+            <form action="/movie" method="GET">
+                <div class="form-group">
+                    <label for="actorSearch">Enter the actor name!</label>
+                    <input type="text" class="form-control" id="actorSearch" placeholder="Search Actors" required>
+                </div>
+                <button class="btn btn-primary">Search!</button>
+            </form>
+        </div>
+        <div id="director-searchbox" class="mt-3 hidden">
+            <form action="/movie" method="GET">
+                <div class="form-group">
+                    <label for="dirSearch">Enter the director name!</label>
+                    <input type="text" class="form-control" id="dirSearch" placeholder="Search Directors" required>
+                </div>
+                <button class="btn btn-primary">Search!</button>
+            </form>
+        </div>
+        <div id="productioncompany-searchbox" class="mt-3 hidden">
+            <form action="/movie" method="GET">
+                <div class="form-group">
+                    <label for="pcSearch">Enter the prodcution company name!</label>
+                    <input type="text" class="form-control" id="pcSearch" placeholder="Search Producers" required> 
+                </div>
+                <button class="btn btn-primary">Search!</button>
+            </form>
         </div>
     </div>
 
@@ -30,7 +66,7 @@
         <div class="secondary-heading">
             <small>
                 <h2>
-                    <strong>Submit about A movie</strong>
+                    <strong>Submit about a movie</strong>
                 </h2>
             </small>
             <p>
@@ -41,4 +77,25 @@
             <a href="/new" class="btn btn-primary">Submit Movie Details</a>
         </div>
     </div>
+
+    
+    <script>
+        // minor UI script
+        document.getElementById('b1').addEventListener('click', () => {
+            document.getElementById('movie-searchbox').classList.toggle('hidden');
+            document.getElementById('movie-searchbox').classList.toggle('visible');
+        });
+        document.getElementById('b2').addEventListener('click', () => {
+            document.getElementById('actor-searchbox').classList.toggle('hidden');
+            document.getElementById('actor-searchbox').classList.toggle('visible');
+        });
+        document.getElementById('b3').addEventListener('click', () => {
+            document.getElementById('director-searchbox').classList.toggle('hidden');
+            document.getElementById('director-searchbox').classList.toggle('visible');
+        });
+        document.getElementById('b4').addEventListener('click', () => {
+            document.getElementById('productioncompany-searchbox').classList.toggle('hidden');
+            document.getElementById('productioncompany-searchbox').classList.toggle('visible');
+        });
+    </script>
 <% include ./partials/footer.ejs %>

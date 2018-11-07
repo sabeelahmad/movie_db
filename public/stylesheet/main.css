@@ -18,3 +18,11 @@
     color: #003f93;
     background-color: #fff;   
 }
+.hidden {
+    display: none;
+    transition: all .3s;
+}
+.visible {
+    display: block;
+    transition: all .3s;
+}
