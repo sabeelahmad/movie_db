@@ -40,19 +40,9 @@ app.get('/new', (req, res) => {
 
 // Submit routes
 app.post('/new', (req, res) => {
-    console.log(req.body);
     /* Basic tables that don't have data-integrity constraints */
-    let movieTableData = {
-        title: req.body.title,
-        runtime: req.body.runtime,
-        plot: req.body.plot,
-        releaseYear: req.body.releaseYear,
-    };
-    let productionCompanyData = {
-        pcName: req.body.pcName,
-        pcAddress: req.body.pcAddr,
-        pcOwner: req.body.pcOwner,
-    }
+    let movieTableData = [req.body.title, req.body.runtime, req.body.plot, req.body.releaseYear];
+    let productionCompanyData = [req.body.pcName, req.body.pcAddr, req.body.pcOwner];
     let directorName = req.body.director;
     /* Data associated with integrity constraints, need to capture movie_id,
     pc_id, director_id first as they are foreign keys for following data */
@@ -69,16 +59,42 @@ app.post('/new', (req, res) => {
     if(req.body.genreSelect4 !== undefined) {
         genres.push(req.body.genreSelect4);
     }
+    let castData = [req.body.cast_str, req.body.cast_mgr];
     let actors = [];
     for(let counter = 0; counter < req.body.cast_str; counter++) {
         actors.push(req.body[`actor${counter}`]);
     }
+
     console.log(movieTableData);
     console.log(productionCompanyData);
     console.log(directorName);
     console.log(genres);
     console.log(actors);
-    res.send('We are working on form submissions');
+
+    // Calling functions that work on db
+    // Welcome to call back hell *_*
+    let movieId = -1, pcId = -1, dirId = -1;
+    db.createMovieRow(movieTableData, (id) => {
+        movieId = id;
+        db.createPCRow(productionCompanyData, (id) => {
+            pcId = id;
+            // Create association between movie and productioncompany
+            db.associateMovieToProductionCompany([movieId, pcId]);
+        });
+        db.createDirectorRow(directorName,  (id) => {
+            dirId = id;
+            // Create association between movie and director
+            db.associateMovieToDirector([movieId, dirId]);
+        });
+        // Add genres of movie to movie_genre table
+        db.createMovieGenres(movieId, genres);
+        // Create Cast Table
+        castData.push(movieId);
+        db.createCast(castData);
+        // Add data to actors table
+        db.createActors(movieId, actors);
+    });
+    res.render('submit');
 });
 
 

@@ -70,7 +70,7 @@ CREATE TABLE cast_of_movie(
     cast_strength int NOT NULL,
     casting_manager varchar(250) NOT NULL, 
     FOREIGN KEY (movie_id) REFERENCES movie(movie_id),
-    PRIMARY KEY (movie_id,casting_manager)
+    PRIMARY KEY (movie_id)
 );
 
 -- Cast Actor Table
