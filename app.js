@@ -73,6 +73,14 @@ app.get('/productioncompany', (req, res) => {
     });
 });
 
+// Review route
+app.get('/movie/reviews/:id', (req, res) => {
+    console.log('Movie id: ' + req.params.id);
+    res.send('Movie Reviews Here');
+});
+
+
+// Form display route
 app.get('/new', (req, res) => {
     res.render('new');
 });
