@@ -33,13 +33,22 @@ app.get('/movie', (req, res) => {
                 for(let j = 0; j < foundActors.length; j++) {
                     finalMovieData[i].actors.push(foundActors[j]);        
                 }
+                // find movie genres
                 db.genreSearch(foundMovies[i].movie_id, (foundGenres) => {
                     for(let k = 0; k < foundGenres.length; k++) {
                         finalMovieData[i].genres.push(foundGenres[k]);
                     }
-                    if(i === foundMovies.length - 1) {
-                        res.render('movieSearch', {data: foundMovies});
-                    }
+                    // find director
+                    db.findMovieDir(foundMovies[i].movie_id, (foundDirector) => {
+                        finalMovieData[i].director = foundDirector[0].director_name;
+                        // find pc
+                        db.findMoviePC(foundMovies[i].movie_id, (foundPC) => {
+                            finalMovieData[i].pc = foundPC[0].pc_name;
+                            if(i === foundMovies.length - 1) {
+                                res.render('movieSearch', {data: finalMovieData});
+                            }
+                        });
+                    });
                 });
             });
         } 

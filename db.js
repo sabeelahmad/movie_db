@@ -173,6 +173,38 @@ function genreSearch(id, cb) {
     });
 }
 
+function findMovieDir(id, cb) {
+    let sql = `SELECT director_name FROM director
+              INNER JOIN directed_by 
+              ON director.director_id = directed_by.director_id
+              INNER JOIN movie
+              ON directed_by.movie_id = movie.movie_id
+              WHERE movie.movie_id = ${id}`;
+    connection.query(sql, (err, rows, cols) => {
+        if(err) {
+            console.log(err);
+        } else {
+            return cb(rows);
+        }
+    }); 
+}
+
+function findMoviePC(id, cb) {
+    let sql = `SELECT pc_name FROM production_company
+              INNER JOIN produced_by 
+              ON production_company.pc_id = produced_by.pc_id
+              INNER JOIN movie
+              ON produced_by.movie_id = movie.movie_id
+              WHERE movie.movie_id = ${id}`;
+    connection.query(sql, (err, rows, cols) => {
+        if(err) {
+            console.log(err);
+        } else {
+            return cb(rows);
+        }
+    }); 
+}
+
 function searchByActorName(data, cb) {
     let sql = `SELECT actor_name, title, release_year, plot FROM movie
                INNER JOIN cast_actor
@@ -231,6 +263,8 @@ exports = module.exports = {
     searchMovieByName,
     castSearch,
     genreSearch,
+    findMovieDir,
+    findMoviePC,
     searchByActorName,
     searchByDirectorName,
     searchByProductionCompany
