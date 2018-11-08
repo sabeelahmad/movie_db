@@ -21,8 +21,7 @@ app.get('/', (req, res) => {
 app.get('/movie', (req, res) => {
     db.searchMovieByName(req.query.movie, (foundMovies) => {
         if(foundMovies.length === 0) {
-            res.render('movieSearch', {data: foundMovies});
-            return;
+            return res.render('movieSearch', {data: foundMovies});
         }
         let finalMovieData = foundMovies;
         // Run query to find actor
@@ -32,19 +31,16 @@ app.get('/movie', (req, res) => {
             // find cast for each movie found from search
             db.castSearch(foundMovies[i].movie_id, (foundActors) => {
                 for(let j = 0; j < foundActors.length; j++) {
-                    finalMovieData[i].actors.push(foundActors[j]);
-                    if(j === foundActors.length - 1) {
-                        // find genre for each movie found from search
-                        db.genreSearch(foundMovies[i].movie_id, (foundGenres) => {
-                            for(let k = 0; k < foundGenres.length; k++) {
-                                finalMovieData[i].genres.push(foundGenres[k]);
-                                if(i === foundMovies.length - 1) {
-                                    res.render('movieSearch', {data: finalMovieData});
-                                }
-                            }
-                        });
-                    }
+                    finalMovieData[i].actors.push(foundActors[j]);        
                 }
+                db.genreSearch(foundMovies[i].movie_id, (foundGenres) => {
+                    for(let k = 0; k < foundGenres.length; k++) {
+                        finalMovieData[i].genres.push(foundGenres[k]);
+                    }
+                    if(i === foundMovies.length - 1) {
+                        res.render('movieSearch', {data: foundMovies});
+                    }
+                });
             });
         } 
     });
@@ -52,17 +48,20 @@ app.get('/movie', (req, res) => {
 
 app.get('/actor', (req, res) => {
     db.searchByActorName(req.query.actor, (foundActor) => {
-        console.log(foundActor);
         res.render('actorSearch', {data: foundActor});
     });
 });
 
 app.get('/director', (req, res) => {
-   res.render('directorSearch');
+    db.searchByDirectorName(req.query.director, (foundDirector) => {
+        res.render('directorSearch', {data: foundDirector});
+    });
 });
 
 app.get('/productioncompany', (req, res) => {
-    res.render('productionCompanySearch');
+    db.searchByProductionCompany(req.query.pc, (foundPC) => {
+        res.render('productionCompanySearch', {data: foundPC});
+    });
 });
 
 app.get('/new', (req, res) => {

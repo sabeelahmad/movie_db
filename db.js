@@ -187,6 +187,38 @@ function searchByActorName(data, cb) {
     });
 }
 
+function searchByDirectorName(data, cb) {
+    let sql = `SELECT title, plot, release_year, director_name FROM movie 
+              INNER JOIN directed_by
+              ON directed_by.movie_id = movie.movie_id
+              INNER JOIN director
+              ON director.director_id = directed_by.director_id
+              WHERE director_name = "${data}"`;
+    connection.query(sql, (err, rows, cols) => {
+        if(err) {
+            console.log(err);
+        } else {
+            cb(rows);
+        }
+    });
+}
+
+function searchByProductionCompany(data, cb) {
+    let sql = `SELECT title, plot, release_year, pc_name, pc_owner, pc_address FROM movie 
+              INNER JOIN produced_by 
+              ON movie.movie_id = produced_by.movie_id
+              INNER JOIN production_company
+              ON produced_by.pc_id = production_company.pc_id
+              WHERE pc_name = "${data}"`;
+    connection.query(sql, (err, rows, cols) => {
+        if(err) {
+            console.log(err);
+        } else {
+            cb(rows);
+        }
+    });
+}
+
 exports = module.exports = {
     createMovieRow,
     createPCRow,
@@ -200,4 +232,6 @@ exports = module.exports = {
     castSearch,
     genreSearch,
     searchByActorName,
+    searchByDirectorName,
+    searchByProductionCompany
 }
