@@ -1,0 +1,27 @@
+<% include ./partials/header.ejs %>
+
+    <div class="container text-center">
+        <h3>
+            <strong>Submit Review Here</strong>
+        </h3>
+    </div>
+
+    <div class="container" style="margin-top: 3rem;">
+        <form action="/movie/reviews/<%= id %>" method="POST">
+            <div class="form-group">
+                <label for="reviewer">Reviewer Name</label>
+                <input type="text" class="form-control" name="reviewer" id="reviewer" placeholder="Your Name Here... You can be anonymous too">
+            </div>
+            <div class="form-group">
+                <label for="rating">Rating</label>
+                <input type="number" class="form-control" name="rating" id="rating" placeholder="Rate the movie out of 5..." min="0" max="5" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Review</label>
+                <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Review!</button>
+        </form>
+    </div>
+
+<% include ./partials/footer.ejs %>

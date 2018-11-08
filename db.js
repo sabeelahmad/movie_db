@@ -138,6 +138,29 @@ function createActors(id, data) {
     }
 }
 
+// create review
+function createReview(data, cb) {
+    let sql = `INSERT INTO reviews(rating, review_desc, reviewed_by) VALUES (?, ?, ?)`;
+    connection.query(sql, data, (err, rows, cols) => {
+        if(err) {
+            console.log(err);
+        } else {
+            return cb(rows.insertId);
+        }
+    });
+}
+
+// associate movie and review
+function associateReview(data) {
+    let sql = `INSERT INTO rated(movie_id, review_id) VALUES(?, ?)`;
+    connection.query(sql, data, (err, rows, cols) => {
+        if(err) {
+            console.log(err);
+        } else {
+            console.log(rows);
+        }
+    });
+}
 
 /* SEARCH QUERIES */
 function searchMovieByName(data, cb) {
@@ -260,6 +283,8 @@ exports = module.exports = {
     createMovieGenres,
     createCast,
     createActors,
+    createReview,
+    associateReview,
     searchMovieByName,
     castSearch,
     genreSearch,

@@ -73,10 +73,13 @@ app.get('/productioncompany', (req, res) => {
     });
 });
 
-// Review route
+// Review routes
 app.get('/movie/reviews/:id', (req, res) => {
-    console.log('Movie id: ' + req.params.id);
-    res.send('Movie Reviews Here');
+    res.render('getReviews');
+});
+
+app.get('/movie/reviews/new/:id', (req, res) => {
+    res.render('newReview', {id: req.params.id});
 });
 
 
@@ -140,6 +143,23 @@ app.post('/new', (req, res) => {
         db.createCast(castData);
         // Add data to actors table
         db.createActors(movieId, actors);
+    });
+    res.render('submit');
+});
+
+app.post('/movie/reviews/:id', (req, res) => {
+    let movieId = req.params.id;
+    let reviewData = [req.body.rating, req.body.description];
+    if(req.body.reviewer === '') {
+        reviewData.push('Anonymous');
+    } else {
+        reviewData.push(req.body.reviewer);
+    }
+    // Adding review data to database
+    db.createReview(reviewData, (id) => {
+        reviewId = id;
+        // associate created review to movie
+        db.associateReview([movieId, reviewId]);
     });
     res.render('submit');
 });
