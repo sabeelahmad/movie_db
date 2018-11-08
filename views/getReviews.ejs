@@ -2,8 +2,32 @@
 
     <div class="container text-center">
         <h3>
-            <strong>View Reviews Here</strong>
+            <% if(data.length !== 0) { %>
+                <strong>Reviews for <em><%= data[0].title %></em></strong>
+            <% } %>
         </h3>
+    </div>
+    <div class="container search-data"></div>
+        <% if(data.length === 0) { %>
+            <div class="mt-5 text-center container">
+                <p class="lead">
+                    Looks like we don't have reviews about this movie :(
+                    Add your own review?
+                    <a class="btn btn-primary" href="/movie/reviews/new/<%= id %>">Submit Review!</a>
+                </p>
+            </div>
+        <% } %>
+        <% for(let i = 0; i < data.length; i++) { %>
+            <div class="eachreview container">
+                <div class="card w-100 mt-5 text-center">
+                    <div class="card-body">
+                        <p class="card-text"> <span><strong>Review By</strong></span><br> <%= data[i].reviewed_by %></p>
+                        <p class="card-text"> <span><strong>Rating</strong></span><br> <%= data[i].rating %> / 5</p>
+                        <p class="card-text"> <span><strong>Review</strong></span><br> <%= data[i].review_desc %></p>
+                    </div>
+                </div>
+            </div>
+        <% } %>
     </div>
 
 <% include ./partials/footer.ejs %>

@@ -75,7 +75,9 @@ app.get('/productioncompany', (req, res) => {
 
 // Review routes
 app.get('/movie/reviews/:id', (req, res) => {
-    res.render('getReviews');
+    db.getAllReviews(req.params.id, (foundReviews) => {
+        res.render('getReviews', {data: foundReviews, id: req.params.id});
+    })
 });
 
 app.get('/movie/reviews/new/:id', (req, res) => {
@@ -114,13 +116,6 @@ app.post('/new', (req, res) => {
     for(let counter = 0; counter < req.body.cast_str; counter++) {
         actors.push(req.body[`actor${counter}`]);
     }
-
-    console.log(movieTableData);
-    console.log(productionCompanyData);
-    console.log(directorName);
-    console.log(genres);
-    console.log(actors);
-
     // Calling functions that work on db
     // Welcome to call back hell *_*
     let movieId = -1, pcId = -1, dirId = -1;

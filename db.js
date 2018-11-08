@@ -274,6 +274,22 @@ function searchByProductionCompany(data, cb) {
     });
 }
 
+function getAllReviews(id, cb) {
+    let sql = `SELECT rating, reviewed_by, title, review_desc FROM movie 
+    INNER JOIN rated 
+    ON rated.movie_id = movie.movie_id 
+    INNER JOIN reviews 
+    ON reviews.review_id = rated.review_id
+    WHERE movie.movie_id = ${id}`;
+    connection.query(sql, (err, rows, cols) => {
+        if(err) {
+            console.log(err);
+        } else {
+            return cb(rows);
+        }
+    });
+}
+
 exports = module.exports = {
     createMovieRow,
     createPCRow,
@@ -292,5 +308,6 @@ exports = module.exports = {
     findMoviePC,
     searchByActorName,
     searchByDirectorName,
-    searchByProductionCompany
+    searchByProductionCompany,
+    getAllReviews
 }
