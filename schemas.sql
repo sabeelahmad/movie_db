@@ -11,7 +11,8 @@ CREATE TABLE movie (
 CREATE TABLE movie_genre (
     movie_id int,
     genre varchar(30) NOT NULL,
-    FOREIGN KEY(movie_id) REFERENCES movie(movie_id),
+    FOREIGN KEY(movie_id) REFERENCES movie(movie_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY(movie_id, genre)
 );
 
@@ -27,8 +28,10 @@ CREATE TABLE production_company (
 create table produced_by(
     movie_id int,
     pc_id int,
-    FOREIGN KEY (movie_id) REFERENCES movie(movie_id),
-    FOREIGN KEY (pc_id) REFERENCES production_company(pc_id),
+    FOREIGN KEY (movie_id) REFERENCES movie(movie_id) 
+    ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (pc_id) REFERENCES production_company(pc_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY(movie_id, pc_id)
 );
 
@@ -44,8 +47,10 @@ CREATE TABLE reviews(
 CREATE TABLE rated(
     review_id int,
     movie_id int,
-    FOREIGN KEY (movie_id) REFERENCES movie(movie_id),
-    FOREIGN KEY (review_id) REFERENCES reviews(review_id), 
+    FOREIGN KEY (movie_id) REFERENCES movie(movie_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (review_id) REFERENCES reviews(review_id)
+    ON DELETE CASCADE ON UPDATE CASCADE, 
     PRIMARY KEY (movie_id,review_id)
 );
 
@@ -59,8 +64,10 @@ CREATE TABLE director(
 CREATE TABLE directed_by (
     director_id int,
     movie_id int,
-    FOREIGN KEY (movie_id) REFERENCES movie(movie_id),
-    FOREIGN KEY (director_id) REFERENCES director(director_id),
+    FOREIGN KEY (movie_id) REFERENCES movie(movie_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (director_id) REFERENCES director(director_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (director_id,movie_id)
 );
 
@@ -69,7 +76,8 @@ CREATE TABLE cast_of_movie(
     movie_id int,
     cast_strength int NOT NULL,
     casting_manager varchar(250) NOT NULL, 
-    FOREIGN KEY (movie_id) REFERENCES movie(movie_id),
+    FOREIGN KEY (movie_id) REFERENCES movie(movie_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (movie_id)
 );
 
@@ -77,7 +85,8 @@ CREATE TABLE cast_of_movie(
 CREATE TABLE cast_actor(
     movie_id int,
     actor_name varchar(250) NOT NULL,
-    FOREIGN KEY (movie_id) REFERENCES movie(movie_id),
+    FOREIGN KEY (movie_id) REFERENCES movie(movie_id)
+    ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (actor_name,movie_id)
 );
 
