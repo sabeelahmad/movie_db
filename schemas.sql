@@ -89,7 +89,3 @@ CREATE TABLE cast_actor(
     ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY (actor_name,movie_id)
 );
-
-
-
-

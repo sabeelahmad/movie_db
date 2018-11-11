@@ -290,6 +290,21 @@ function getAllReviews(id, cb) {
     });
 }
 
+/* CHECK */
+function checkDuplicateMovie(ry, plot, title, cb) {
+    let sql = `SELECT * FROM movie 
+    WHERE plot= "${plot}" AND release_year = "${ry}" AND title = "${title}"`;
+    console.log(sql);
+    connection.query(sql, (err, rows, cols) => {
+        if(err) {
+            console.log(err)
+        } else {
+            console.log(rows.length);
+            return cb(rows);
+        }
+    });
+}
+
 exports = module.exports = {
     createMovieRow,
     createPCRow,
@@ -309,5 +324,6 @@ exports = module.exports = {
     searchByActorName,
     searchByDirectorName,
     searchByProductionCompany,
-    getAllReviews
+    getAllReviews,
+    checkDuplicateMovie
 }
